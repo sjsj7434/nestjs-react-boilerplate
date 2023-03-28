@@ -1,7 +1,9 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from 'ckeditor5-custom-build/build/ckeditor'; //online-build, custom build, [npm add file]
 // https://stackoverflow.com/questions/62243323/reactjs-import-ckeditor-5-from-online-build
+import '../css/MyEditor.css'
 
+const editorMaxKB = 50; //에디터 HTML 최대 Byte
 const editorConfiguration = {
 	toolbar: [
 		'heading',
@@ -133,6 +135,19 @@ const editorConfiguration = {
 			wordCountWrapper.textContent = `글자 수 => ${stats.characters}`;
 			wordCountWrapper.classList.toggle( 'demo-update__limit-close', false )
 		}
+	},
+	simpleUpload: {
+		// The URL that the images are uploaded to.
+		uploadUrl: 'http://localhost:3000/api/users/image',
+
+		// Enable the XMLHttpRequest.withCredentials property.
+		withCredentials: true,
+
+		// Headers sent along with the XMLHttpRequest to the upload server.
+		headers: {
+			'X-CSRF-TOKEN': 'CSRF-Token',
+			Authorization: 'Bearer <JSON Web Token>'
+		}
 	}
 };
 
@@ -149,8 +164,8 @@ const MyEditor = () => {
 					console.log( 'Editor is ready to use!', editor );
 					// console.log(Array.from(editor.ui.componentFactory.names()).join(", "));
 
-					const wordCountPlugin = editor.plugins.get( 'WordCount' );
-					const wordCountWrapper = document.getElementById( 'word-count' );
+					// const wordCountPlugin = editor.plugins.get( 'WordCount' );
+					// const wordCountWrapper = document.getElementById( 'word-count' );
 					// wordCountWrapper.appendChild( wordCountPlugin.wordCountContainer ); //기본 view
 				} }
 				onChange={ ( event, editor ) => {
@@ -158,7 +173,17 @@ const MyEditor = () => {
 					// console.log( { event, editor, data } );
 					console.log(data);
 					const wordCountWrapper = document.getElementById( 'html-count' );
-					wordCountWrapper.textContent = `html 글자 수 => ${data.length}`;
+
+					const stringByteLength = (function(s,b,i,c){
+						for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
+						return b;
+					})(data);
+
+					const editorKB = (stringByteLength / 1024).toFixed(3);
+
+					wordCountWrapper.textContent = `
+						editorKB => ${editorKB} KB / ${editorMaxKB} KB
+					`;
 					wordCountWrapper.classList.toggle( 'demo-update__limit-close', false )
 				} }
 				onBlur={ ( event, editor ) => {

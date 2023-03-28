@@ -33,4 +33,14 @@ export class UsersController {
 		console.log(userId);
 		return { "message": 'getUserInfo API!', "userId": userId };
 	}
+
+	@Post('image')
+	async imageUploader(@Body() image: any): Promise<any> {
+		/*
+			https://docs.nestjs.com/techniques/file-upload
+		*/
+		console.log('imageUploader', image);
+		return { "url": "https://img.megastudy.net/campus/library/v2015/library/intro_renew/main_top_banner_teamplay_gate_221216.jpg" };
+		// return { "error": { "message": "The image upload failed because the image was too big (max 1.5MB)." } };
+	}
 }
