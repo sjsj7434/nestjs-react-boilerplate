@@ -138,7 +138,7 @@ const editorConfiguration = {
 	},
 	simpleUpload: {
 		// The URL that the images are uploaded to.
-		uploadUrl: 'http://localhost:3000/api/users/image',
+		uploadUrl: 'http://localhost:3000/image',
 
 		// Enable the XMLHttpRequest.withCredentials property.
 		withCredentials: true,
@@ -176,7 +176,7 @@ const MyEditor = () => {
 
 					const stringByteLength = (
 						function(s, b, i, c){
-							for(b = i = 0; c = s.charCodeAt(i++); b += c >> 11 ? 3 : (c >> 7 ? 2 : 1));
+							for(b = i = 0; (c = s.charCodeAt(i ++)); b += c >> 11 ? 3 : (c >> 7 ? 2 : 1));
 							return b;
 						}
 					)(data);
