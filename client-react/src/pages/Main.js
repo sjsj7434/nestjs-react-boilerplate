@@ -1,7 +1,5 @@
 const Main = () => {
-	async function call(){
-		// const test: HTMLDialogElement = document.querySelector("#dialog")!; //the value is never null by adding the [!] operator
-
+	async function callMine(){
 		const result = await fetch(`${process.env.REACT_APP_SERVER}/hello`);
 		console.log(result);
 		const jsonResult = await result.json();
@@ -9,11 +7,24 @@ const Main = () => {
 		alert(jsonResult.message);
 	}
 
+	async function callExternal(){
+		const result = await fetch(`${process.env.REACT_APP_SERVER}/api`);
+		console.log(result);
+
+		const jsonResult = await result.json();
+		console.log(jsonResult);
+		if(jsonResult.statusCode === 500){
+			alert('Error!\nMaybe you need to edit api token or change url');
+		}
+	}
+
 	return(
 		<div style={{ margin: "20px" }}>
-			<h2>Here is Main</h2>
+			<h2>Here is Main Page</h2>
 
-			<button onClick={() => { call() }}>Call API</button>
+			<button onClick={() => { callMine() }}>Call My API</button>
+			{' '}
+			<button onClick={() => { callExternal() }}>Call External API</button>
 		</div>
 	);
 }
