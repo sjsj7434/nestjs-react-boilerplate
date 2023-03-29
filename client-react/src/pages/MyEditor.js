@@ -174,10 +174,12 @@ const MyEditor = () => {
 					console.log(data);
 					const wordCountWrapper = document.getElementById( 'html-count' );
 
-					const stringByteLength = (function(s,b,i,c){
-						for(b=i=0;c=s.charCodeAt(i++);b+=c>>11?3:c>>7?2:1);
-						return b;
-					})(data);
+					const stringByteLength = (
+						function(s, b, i, c){
+							for(b = i = 0; c = s.charCodeAt(i++); b += c >> 11 ? 3 : (c >> 7 ? 2 : 1));
+							return b;
+						}
+					)(data);
 
 					const editorKB = (stringByteLength / 1024).toFixed(3);
 
