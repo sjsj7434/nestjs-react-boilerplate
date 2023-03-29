@@ -127,6 +127,32 @@ const editorConfiguration = {
 			},
 		]
 	},
+	fontSize: {
+		options: [
+			10,
+			11,
+			12,
+			13,
+			14,
+			15,
+			16,
+			17,
+			18,
+			19,
+			'default',
+			21,
+			22,
+			23,
+			24,
+			25,
+			26,
+			27,
+			28,
+			29,
+			30,
+			40,
+		],
+	},
 	wordCount: {
 		onUpdate: stats => {
 			// Prints the current content statistics.
@@ -137,6 +163,8 @@ const editorConfiguration = {
 		}
 	},
 	simpleUpload: {
+		// https://ckeditor.com/docs/ckeditor5/latest/framework/deep-dive/upload-adapter.html
+		
 		// The URL that the images are uploaded to.
 		uploadUrl: 'http://localhost:3000/image',
 

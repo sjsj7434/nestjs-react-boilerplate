@@ -10,11 +10,11 @@ const Main = () => {
 	}
 
 	return(
-		<>
+		<div style={{ margin: "20px" }}>
 			<h2>Here is Main</h2>
 
 			<button onClick={() => { call() }}>Call API</button>
-		</>
+		</div>
 	);
 }
 
